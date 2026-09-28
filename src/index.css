@@ -1,13 +1,133 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* Paleta da Loja, a mesma da página pública (Inicio.css), como tokens da área interna:
+       marfim de fundo, azul maçônico profundo na navegação, azul real nos botões e dourado
+       ritual como destaque. */
+    --background: 42 50% 97%;
+    --foreground: 0 0% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 17%;
+
+    --primary: 218 48% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 42 45% 92%;
+    --secondary-foreground: 224 50% 24%;
+    --muted: 42 30% 93%;
+    --muted-foreground: 0 0% 43%;
+    --accent: 42 45% 92%;
+    --accent-foreground: 224 50% 24%;
+    --destructive: 354 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --ouro: 46 65% 52%;
+    --ouro-foreground: 0 0% 17%;
+
+    --border: 42 25% 86%;
+    --input: 42 25% 86%;
+    --field: 0 0% 100%;
+    --ring: 218 48% 35%;
+    --radius: 0.75rem;
+
+    --success: 168 55% 93%;
+    --success-foreground: 168 70% 22%;
+    --warning: 38 85% 93%;
+    --warning-foreground: 32 90% 30%;
+    --error: 350 90% 96%;
+    --error-foreground: 354 70% 42%;
+
+    /* Cores de status para os gráficos: pago é o azul da marca, irregular o âmbar. */
+    --chart-good: 218 48% 35%;
+    --chart-warning: 38 92% 54%;
+    --chart-ouro: 46 65% 52%;
+
+    --sidebar-background: 224 50% 24%;
+    --sidebar-foreground: 42 50% 90%;
+    --sidebar-accent: 218 48% 35%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 224 50% 18%;
+
+    --font-display: 'Manrope', system-ui, sans-serif;
+    --font-body: 'Manrope', system-ui, sans-serif;
+    --font-tabular: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
 }
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+/* Alinhamento tabular para valores em tabelas e cards. */
+.font-tabular {
+  font-family: var(--font-tabular);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  white-space: nowrap;
+}
+
+/* Shell usado pelo Layout.tsx */
+.fmo-layout {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: hsl(var(--background));
+}
+.fmo-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  background-color: hsl(var(--sidebar-background));
+  border-right: 1px solid hsl(var(--sidebar-border));
+  transition: transform 0.25s ease;
+}
+.fmo-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.fmo-header {
+  height: 60px;
+  flex-shrink: 0;
+  border-bottom: 1px solid hsl(var(--border));
+  background-color: hsl(var(--background) / 0.85);
+  backdrop-filter: blur(8px);
+}
+.fmo-content { flex: 1; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.fmo-page { width: 100%; max-width: 1100px; margin: 0 auto; padding: 28px 32px 60px; }
+
+@media (max-width: 767px) {
+  .fmo-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 40; transform: translateX(-100%); }
+  .fmo-sidebar.aberta { transform: translateX(0); }
+  .fmo-page { padding: 16px 16px 40px; }
+}
+
+/* Recharts dá tabIndex às fatias e barras: sem isto o navegador desenha o outline de foco
+ * sobre o gráfico ao clicar. */
+.recharts-wrapper *:focus { outline: none; }
+.recharts-wrapper svg { overflow: visible; }
+
+/* Tailwind não põe cursor:pointer em <button>. Sem isto, o Safari no celular exige dois toques
+ * em botão com hover:. */
+button:not(:disabled) { cursor: pointer; }
