@@ -1,21 +1,21 @@
 {
-  "name": "Loja Maçônica Nº 43",
+  "name": "Loja Maçônica Flaviano Mendes de Oliveira Nº 43",
   "short_name": "Loja 43",
-  "description": "App web da Loja Maçônica Nº 43 para controle de pagamentos, comunicação e gestão.",
+  "description": "Área interna da Loja Maçônica Flaviano Mendes de Oliveira Nº 43: feed, ritual e secretaria.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#1877f2",
-  "theme_color": "#1877f2",
+  "background_color": "#1E2F5B",
+  "theme_color": "#1E2F5B",
   "orientation": "portrait",
   "scope": ".",
   "icons": [
     {
-      "src": "./assets/fmo.png",
+      "src": "logo192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./assets/fmo.png",
+      "src": "logo512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
